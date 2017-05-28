@@ -1,6 +1,6 @@
 {
   "name": "runstring",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Convert JS functions to runnable strings. With parameter serialization!",
   "main": "index.js",
   "scripts": {
