@@ -105,4 +105,29 @@ describe("index", function () {
 
     });
 
+    describe("evaluation", function () {
+
+        it("should not run on its own", function () {
+            var hasRun = false;
+            index(function () {
+                hasRun = true;
+            });
+            if (hasRun) {
+                throw new Error("function was run");
+            }
+        });
+
+        it("should produce evaluatable strings", function () {
+            var string = index(function (a, b) {
+                return a + b;
+            }, 5, 7);
+            // eslint-disable-next-line no-eval
+            var result = eval(string);
+            if (result !== 12) {
+                throw new Error("wrong eval result: " + result);
+            }
+        });
+
+    });
+
 });
