@@ -1,0 +1,28 @@
+{
+  "name": "runstring",
+  "version": "0.0.0",
+  "description": "Convert JS functions to runnable strings. With parameter serialization!",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JangoBrick/runstring.git"
+  },
+  "keywords": [
+    "functions",
+    "string",
+    "stringify",
+    "runnable",
+    "eval",
+    "executable",
+    "invoke"
+  ],
+  "author": "Fabian Meyer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JangoBrick/runstring/issues"
+  },
+  "homepage": "https://github.com/JangoBrick/runstring"
+}
