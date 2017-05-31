@@ -6,6 +6,24 @@ describe("index", function () {
 
     describe("function stringification", function () {
 
+        it("should accept nothing but functions", function () {
+            function test(value) {
+                try {
+                    index(value);
+                } catch (e) {
+                    return;
+                }
+                throw new Error("not thrown for type: " + typeof value);
+            }
+            test();
+            test(null);
+            test(true);
+            test("function");
+            test(42);
+            test([1, 2, 3]);
+            test({ foo: "bar" });
+        });
+
         it("should return a string", function () {
             var result = index(function () {});
             if (typeof result !== "string") {
