@@ -121,6 +121,17 @@ describe("index", function () {
             }
         });
 
+        it("should serialize functions", function () {
+            var result = index(function (aFunc) {
+                aFunc("hello world");
+            }, function (str) {
+                console.log(str);
+            });
+            if (!/\)\(function\s+\(str\)\s*\{\s*console\.log\(str\);\s*\}\)/.test(result)) {
+                throw new Error("incorrect serialization: " + result);
+            }
+        });
+
     });
 
     describe("evaluation", function () {

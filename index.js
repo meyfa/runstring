@@ -10,6 +10,9 @@ module.exports = function (func /*, arg1, arg2, ... */) {
 
 function serializeArguments(args) {
     return args.map(function (arg) {
+        if (typeof arg === "function") {
+            return arg.toString();
+        }
         return JSON.stringify(arg);
     }).join(", ");
 }
