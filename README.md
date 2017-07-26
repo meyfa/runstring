@@ -1,7 +1,7 @@
 # runstring
 
-[![Build Status](https://travis-ci.org/JangoBrick/runstring.svg?branch=master)](https://travis-ci.org/JangoBrick/runstring)
-[![Code Climate](https://codeclimate.com/github/JangoBrick/runstring/badges/gpa.svg)](https://codeclimate.com/github/JangoBrick/runstring)
+[![Build Status](https://travis-ci.org/meyfa/runstring.svg?branch=master)](https://travis-ci.org/meyfa/runstring)
+[![Code Climate](https://codeclimate.com/github/meyfa/runstring/badges/gpa.svg)](https://codeclimate.com/github/meyfa/runstring)
 
 Convert JS functions to runnable strings. With parameter serialization!
 
