@@ -1,13 +1,13 @@
 # runstring
 
 [![Build Status](https://travis-ci.org/meyfa/runstring.svg?branch=master)](https://travis-ci.org/meyfa/runstring)
-[![Code Climate](https://codeclimate.com/github/meyfa/runstring/badges/gpa.svg)](https://codeclimate.com/github/meyfa/runstring)
+[![Maintainability](https://api.codeclimate.com/v1/badges/39e38e2764a453e66a43/maintainability)](https://codeclimate.com/github/meyfa/runstring/maintainability)
 
 Convert JS functions to runnable strings. With parameter serialization!
 
 This was made for Electron's `executeJavaScript()` method, so that the code does
-not need to be constructed as a string but can be passed as a regular function
-that is immediately invoked with specific parameters.
+not need to be constructed as a string but can be passed as an IIFE string with
+specific arguments.
 
 ## Usage
 
@@ -17,17 +17,18 @@ Simply invoke the module with a function and the parameters that should be
 passed to that function.
 
 ```javascript
-var runstring = require("runstring");
-var code = runstring(myFunction, arg1, arg2, ...);
+const runstring = require("runstring");
+
+let code = runstring(myFunction, arg1, arg2, ...);
 // do something with `code`
 ```
 
 ### Example 1
 
 ```javascript
-var runstring = require("runstring");
+const runstring = require("runstring");
 
-var code = runstring(function (a, b) {
+let code = runstring(function (a, b) {
     return a + b;
 }, 5, 7);
 ```
@@ -43,11 +44,11 @@ Any parameter type is supported &mdash; numbers, strings, objects, arrays, and
 even other functions can all be passed to the module for stringification:
 
 ```javascript
-var runstring = require("runstring");
+const runstring = require("runstring");
 
-var code = runstring(function (predicate, action) {
-    var elements = document.getElementsByClassName("item");
-    for (var i = 0; i < elements.length; ++i) {
+let code = runstring(function (predicate, action) {
+    const elements = document.getElementsByClassName("item");
+    for (let i = 0; i < elements.length; ++i) {
         if (predicate(elements[i])) {
             action(elements[i]);
         }
@@ -65,8 +66,8 @@ function removeElement(e) {
 
 ```
 ";(function (predicate, action) {
-    var elements = document.getElementsByClassName("item");
-    for (var i = 0; i < elements.length; ++i) {
+    const elements = document.getElementsByClassName("item");
+    for (let i = 0; i < elements.length; ++i) {
         if (predicate(elements[i])) {
             action(elements[i]);
         }
@@ -77,7 +78,3 @@ function removeElement(e) {
     e.parentNode.removeChild(e);
 });"
 ```
-
-## Tests
-
-Tests use Mocha and should be run using `npm test`.
