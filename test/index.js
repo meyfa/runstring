@@ -73,11 +73,20 @@ describe("index.js", function () {
 
     describe("parameter serialization", function () {
 
+        it("should serialize undefined", function () {
+            const result = index(function (undef0, undef1) {
+                return undef0 === undef1;
+            }, undefined, undefined);
+            if (!/\)\(undefined,\s*undefined\)/.test(result)) {
+                throw new Error("incorrect serialization: " + result);
+            }
+        });
+
         it("should serialize numbers", function () {
             const result = index(function (a, b) {
                 return a + b;
             }, 42, 13.37);
-            if (!/\)\(42,\s*13.37\)/.test(result)) {
+            if (!/\)\(42,\s*13\.37\)/.test(result)) {
                 throw new Error("incorrect serialization: " + result);
             }
         });
@@ -172,6 +181,15 @@ describe("index.js", function () {
                 },
             ]);
             if (!/\)\(\[\s*function\s+\(str\)\s*\{\s*console\.log\(str\);\s*\},?\s*\]\)/.test(result)) {
+                throw new Error("incorrect serialization: " + result);
+            }
+        });
+
+        it("should use null for unsupported types", function () {
+            const result = index(function (val) {
+                return val === null;
+            }, Symbol());
+            if (!/\)\(null\)/.test(result)) {
                 throw new Error("incorrect serialization: " + result);
             }
         });

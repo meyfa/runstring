@@ -4,7 +4,8 @@
   "description": "Convert JS functions to runnable strings. With parameter serialization!",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive"
+    "test": "mocha --recursive",
+    "coverage": "nyc --reporter=lcov mocha --recursive"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/meyfa/runstring",
   "devDependencies": {
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nyc": "^11.8.0"
   }
 }
