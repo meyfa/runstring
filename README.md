@@ -1,6 +1,6 @@
 # runstring
 
-[![Build Status](https://travis-ci.org/meyfa/runstring.svg?branch=master)](https://travis-ci.org/meyfa/runstring)
+[![Build Status](https://travis-ci.com/meyfa/runstring.svg?branch=master)](https://travis-ci.com/meyfa/runstring)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/39e38e2764a453e66a43/test_coverage)](https://codeclimate.com/github/meyfa/runstring/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/39e38e2764a453e66a43/maintainability)](https://codeclimate.com/github/meyfa/runstring/maintainability)
 
