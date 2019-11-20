@@ -10,6 +10,20 @@ This was made for Electron's `executeJavaScript()` method, so that the code does
 not need to be constructed as a string but can be passed as an IIFE string with
 specific arguments.
 
+Serialization supports the following parameter values:
+
+- `null`
+- `undefined`
+- Boolean values `true`, `false`
+- Numbers
+- Strings
+- Other functions (standard and arrow notation)
+- Arrays
+- Objects
+
+Strings will be escaped. Everything listed above can also be nested in arrays
+or objects of (theoretically) unlimited size.
+
 ## Usage
 
 ### Basic Usage

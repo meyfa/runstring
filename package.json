@@ -26,8 +26,11 @@
     "url": "https://github.com/meyfa/runstring/issues"
   },
   "homepage": "https://github.com/meyfa/runstring",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "devDependencies": {
-    "mocha": "^5.2.0",
-    "nyc": "^11.8.0"
+    "mocha": "^6.2.2",
+    "nyc": "^14.1.1"
   }
 }

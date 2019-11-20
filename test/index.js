@@ -69,6 +69,15 @@ describe("index.js", function () {
             }
         });
 
+        it("should stringify arrow functions", function () {
+            const result = index((a, b) => {
+                return a || b;
+            });
+            if (!/\(a,\s*b\)\s*=>\s*\{\s*return a \|\| b;\s*\}/.test(result)) {
+                throw new Error("invalid stringification: " + result);
+            }
+        });
+
     });
 
     describe("parameter serialization", function () {
@@ -181,6 +190,17 @@ describe("index.js", function () {
                 },
             ]);
             if (!/\)\(\[\s*function\s+\(str\)\s*\{\s*console\.log\(str\);\s*\},?\s*\]\)/.test(result)) {
+                throw new Error("incorrect serialization: " + result);
+            }
+        });
+
+        it("should serialize arrow functions", function () {
+            const result = index(function (aFunc) {
+                aFunc("hello world");
+            }, (str) => {
+                console.log(str);
+            });
+            if (!/\)\(\(str\)\s*=>\s*\{\s*console\.log\(str\);\s*\}\)/.test(result)) {
                 throw new Error("incorrect serialization: " + result);
             }
         });
