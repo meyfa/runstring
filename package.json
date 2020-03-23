@@ -4,6 +4,8 @@
   "description": "Convert JS functions to runnable strings. With parameter serialization!",
   "main": "index.js",
   "scripts": {
+    "lint": "standard",
+    "lint-fix": "standard --fix",
     "test": "mocha --recursive",
     "coverage": "nyc --reporter=lcov mocha --recursive"
   },
@@ -31,6 +33,7 @@
   },
   "devDependencies": {
     "mocha": "^7.1.1",
-    "nyc": "^15.0.0"
+    "nyc": "^15.0.0",
+    "standard": "^14.3.3"
   }
 }
