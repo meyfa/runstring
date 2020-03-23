@@ -1,14 +1,15 @@
 'use strict'
 
-module.exports = function (func /*, arg1, arg2, ... */) {
-  if (typeof func !== 'function') {
-    throw new Error('expected a function but got ' + typeof func)
-  }
-  const args = Array.prototype.slice.call(arguments, 1)
-  return ';(' + func + ')(' + args.map(serialize).join(', ') + ');'
-}
+// HELPER FUNCTIONS
 
-function serialize (obj) {
+/**
+ * Stringify something. This determines the value type and then applies
+ * type-specific stringification logic.
+ *
+ * @param {*} obj The 'thing' that should be stringified.
+ * @returns {string} The object, stringified.
+ */
+function stringify (obj) {
   // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof
   switch (typeof obj) {
     case 'undefined':
@@ -18,31 +19,43 @@ function serialize (obj) {
     case 'number':
       return obj.toString()
     case 'string':
-      return serializeString(obj)
+      return stringifyString(obj)
     case 'function':
       return obj.toString()
     case 'object':
-      return serializeObject(obj)
+      return stringifyObject(obj)
     default:
       return 'null'
   }
 }
 
-function serializeObject (obj) {
+/**
+ * Stringify a true object. This is vaguely similar to JSON serialization.
+ *
+ * @param {object} obj The object to stringify.
+ * @returns {string} The object, stringified.
+ */
+function stringifyObject (obj) {
   if (obj === null) {
     return 'null'
   }
   // array
   if (Object.prototype.toString.call(obj) === '[object Array]') {
-    return '[' + Array.prototype.map.call(obj, serialize).join(', ') + ']'
+    return '[' + Array.prototype.map.call(obj, stringify).join(', ') + ']'
   }
   // plain object
   return '{' + Object.keys(obj).map((key) => {
-    return serialize(key) + ': ' + serialize(obj[key])
+    return stringify(key) + ': ' + stringify(obj[key])
   }).join(', ') + '}'
 }
 
-function serializeString (string) {
+/**
+ * Stringify a string (wrap it in quotes and escape special characters).
+ *
+ * @param {string} string The string to stringify.
+ * @returns {string} The string escaped and wrapped in quotes.
+ */
+function stringifyString (string) {
   const escMap = {
     '"': '\\"',
     '\\': '\\\\',
@@ -57,3 +70,24 @@ function serializeString (string) {
     return escMap[m] || '\\u' + (m.charCodeAt(0) + 0x10000).toString(16).substr(1)
   }) + '"'
 }
+
+// EXPORT
+
+/**
+ * Create a runnable string for the given function.
+ *
+ * Arguments after the 'func' argument will map one-to-one onto arguments in
+ * the resulting string.
+ *
+ * @param {function} func  The function.
+ * @param {*}        args  Function arguments.
+ * @returns {string} The runnable string.
+ */
+function createRunString (func, ...args) {
+  if (typeof func !== 'function') {
+    throw new Error('expected a function but got ' + typeof func)
+  }
+  return ';(' + func + ')(' + args.map(stringify).join(', ') + ');'
+}
+
+module.exports = createRunString
