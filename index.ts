@@ -1,5 +1,3 @@
-'use strict'
-
 // HELPER FUNCTIONS
 
 /**
@@ -9,7 +7,7 @@
  * @param {*} obj The 'thing' that should be stringified.
  * @returns {string} The object, stringified.
  */
-function stringify (obj) {
+function stringify (obj: any): string {
   // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof
   switch (typeof obj) {
     case 'undefined':
@@ -35,7 +33,7 @@ function stringify (obj) {
  * @param {object} obj The object to stringify.
  * @returns {string} The object, stringified.
  */
-function stringifyObject (obj) {
+function stringifyObject (obj: { [key: string]: any }): string {
   if (obj === null) {
     return 'null'
   }
@@ -55,8 +53,8 @@ function stringifyObject (obj) {
  * @param {string} string The string to stringify.
  * @returns {string} The string escaped and wrapped in quotes.
  */
-function stringifyString (string) {
-  const escMap = {
+function stringifyString (string: string): string {
+  const escMap: { [key: string]: string } = {
     '"': '\\"',
     '\\': '\\\\',
     '\b': '\\b',
@@ -67,7 +65,8 @@ function stringifyString (string) {
   }
   // eslint-disable-next-line no-control-regex
   return '"' + string.replace(/[\\"\u0000-\u001F\u2028\u2029]/g, (m) => {
-    return escMap[m] || '\\u' + (m.charCodeAt(0) + 0x10000).toString(16).substr(1)
+    if (escMap[m] !== undefined) return escMap[m]
+    return '\\u' + (m.charCodeAt(0) + 0x10000).toString(16).substr(1)
   }) + '"'
 }
 
@@ -79,15 +78,17 @@ function stringifyString (string) {
  * Arguments after the 'func' argument will map one-to-one onto arguments in
  * the resulting string.
  *
- * @param {function} func  The function.
+ * @param {Function} func  The function.
  * @param {*}        args  Function arguments.
  * @returns {string} The runnable string.
  */
-function createRunString (func, ...args) {
+function createRunString (func: Function, ...args: any[]): string {
   if (typeof func !== 'function') {
     throw new Error('expected a function but got ' + typeof func)
   }
-  return ';(' + func + ')(' + args.map(stringify).join(', ') + ');'
+  const funcStr: string = Function.prototype.toString.call(func)
+  const argsStr: string = args.map(stringify).join(', ')
+  return `;(${funcStr})(${argsStr});`
 }
 
-module.exports = createRunString
+export = createRunString

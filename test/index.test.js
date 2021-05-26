@@ -1,6 +1,5 @@
 /* eslint-disable   no-unused-expressions */
 /* global           describe, it */
-'use strict'
 
 const index = require('../')
 
@@ -15,7 +14,7 @@ describe('index.js', function () {
         }
         throw new Error('not thrown for type: ' + typeof value)
       }
-      test()
+      test(undefined)
       test(null)
       test(true)
       test('function')
