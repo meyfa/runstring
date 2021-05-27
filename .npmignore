@@ -1,7 +1,0 @@
-.gitignore
-.gitattributes
-/test
-.eslintrc.yml
-.travis.yml
-/.nyc_output
-/coverage

@@ -5,6 +5,9 @@
   "type": "commonjs",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && tsc",
@@ -33,7 +36,7 @@
   },
   "homepage": "https://github.com/meyfa/runstring",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "devDependencies": {
     "@types/mocha": "^8.2.2",
