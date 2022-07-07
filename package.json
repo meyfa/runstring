@@ -15,7 +15,7 @@
     "lint-fix": "eslint --fix --ignore-path .gitignore . && tsc --noEmit",
     "test": "mocha --require ts-node/register --recursive \"test/**/*.test.*\"",
     "coverage": "nyc --reporter=lcov npm test",
-    "prepare": "npm run build"
+    "prepack": "npm run build"
   },
   "repository": {
     "type": "git",
