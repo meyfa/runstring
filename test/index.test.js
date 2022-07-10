@@ -1,7 +1,7 @@
 /* eslint-disable   no-unused-expressions */
 /* global           describe, it */
 
-const index = require('../')
+const index = require('../index.js')
 
 describe('index.js', function () {
   describe('function stringification', function () {
