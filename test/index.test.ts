@@ -1,4 +1,4 @@
-import index from '../index.js'
+import index from '../src/index.js'
 
 describe('index.js', function () {
   describe('function stringification', function () {
