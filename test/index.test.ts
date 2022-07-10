@@ -1,12 +1,9 @@
-/* eslint-disable   no-unused-expressions */
-/* global           describe, it */
-
-const index = require('../index.js')
+import index from '../index.js'
 
 describe('index.js', function () {
   describe('function stringification', function () {
     it('should accept nothing but functions', function () {
-      function test (value) {
+      function test (value: any): void {
         try {
           index(value)
         } catch (e) {
@@ -24,55 +21,54 @@ describe('index.js', function () {
     })
 
     it('should return a string', function () {
-      const result = index(function () {})
+      const result: string = index(function () {})
       if (typeof result !== 'string') {
         throw new Error('expected a string but got ' + typeof result)
       }
     })
 
     it('should start with a semicolon', function () {
-      const result = index(function () {})
-      if (!/^;/.test(result)) {
+      const result: string = index(function () {})
+      if (!result.startsWith(';')) {
         throw new Error('not starting with a semicolon: ' + result)
       }
     })
 
     it('should end with a semicolon', function () {
-      const result = index(function () {})
-      if (!/;$/.test(result)) {
+      const result: string = index(function () {})
+      if (!result.endsWith(';')) {
         throw new Error('not ending with a semicolon: ' + result)
       }
     })
 
     it('should be an IIFE', function () {
-      const result = index(function () {})
+      const result: string = index(function () {})
       if (!/\(function .*\)\(.*\)/.test(result)) {
         throw new Error('not an immediately-invoked function expression: ' + result)
       }
     })
 
     it('should keep the parameters', function () {
-      // eslint-disable-next-line no-unused-vars
-      const result = index(function (foo, bar) {})
+      const result: string = index(function (foo: any, bar: any) {})
       if (!/function\s*\(foo,\s*bar\)/.test(result)) {
         throw new Error('parameters not kept: ' + result)
       }
     })
 
     it('should stringify the contents', function () {
-      const result = index(function (a, b) {
+      const result: string = index(function (a: boolean, b: boolean) {
         return a || b
       })
-      if (!/\{\s*return a \|\| b\s*\}/.test(result)) {
+      if (!/\{\s*return a \|\| b;?\s*\}/.test(result)) {
         throw new Error('contents not stringified correctly: ' + result)
       }
     })
 
     it('should stringify arrow functions', function () {
-      const result = index((a, b) => {
+      const result: string = index((a: boolean, b: boolean) => {
         return a || b
       })
-      if (!/\(a,\s*b\)\s*=>\s*\{\s*return a \|\| b\s*\}/.test(result)) {
+      if (!/\(a,\s*b\)\s*=>\s*\{\s*return a \|\| b;?\s*\}/.test(result)) {
         throw new Error('invalid stringification: ' + result)
       }
     })
@@ -80,7 +76,7 @@ describe('index.js', function () {
 
   describe('parameter serialization', function () {
     it('should serialize undefined', function () {
-      const result = index(function (undef0, undef1) {
+      const result: string = index(function (undef0: any, undef1: any) {
         return undef0 === undef1
       }, undefined, undefined)
       if (!/\)\(undefined,\s*undefined\)/.test(result)) {
@@ -89,7 +85,7 @@ describe('index.js', function () {
     })
 
     it('should serialize numbers', function () {
-      const result = index(function (a, b) {
+      const result: string = index(function (a: number, b: number) {
         return a + b
       }, 42, 13.37)
       if (!/\)\(42,\s*13\.37\)/.test(result)) {
@@ -98,7 +94,7 @@ describe('index.js', function () {
     })
 
     it('should serialize strings', function () {
-      const result = index(function (a, b) {
+      const result: string = index(function (a: string, b: string) {
         return a + ' ' + b
       }, 'hello', 'world')
       if (!/\)\("hello",\s*"world"\)/.test(result)) {
@@ -107,16 +103,16 @@ describe('index.js', function () {
     })
 
     it('should escape serialized strings', function () {
-      const result = index(function (a, b) {
+      const result: string = index(function (a: string, b: string) {
         return a + ' ' + b
       }, 'foo"bar\\"\n')
-      if (!/\)\("foo\\"bar\\\\\\"\\n"\)/.test(result)) {
+      if (!result.includes(')("foo\\"bar\\\\\\"\\n")')) {
         throw new Error('incorrect serialization: ' + result)
       }
     })
 
     it('should serialize booleans', function () {
-      const result = index(function (a, b) {
+      const result: string = index(function (a: boolean, b: boolean) {
         return a || b
       }, true, false)
       if (!/\)\(true,\s*false\)/.test(result)) {
@@ -125,16 +121,16 @@ describe('index.js', function () {
     })
 
     it('should serialize null', function () {
-      const result = index(function (a) {
+      const result: string = index(function (a: any) {
         console.log(a)
       }, null)
-      if (!/\)\(null\)/.test(result)) {
+      if (!result.includes(')(null)')) {
         throw new Error('incorrect serialization: ' + result)
       }
     })
 
     it('should serialize objects', function () {
-      const result = index(function (a) {
+      const result: string = index(function (a: any) {
         console.log(a)
       }, {
         foo: 'bar',
@@ -146,7 +142,7 @@ describe('index.js', function () {
     })
 
     it('should serialize arrays', function () {
-      const result = index(function (a) {
+      const result: string = index(function (a: any) {
         console.log(a)
       }, [42, 'foo', true])
       if (!/\)\(\[\s*42,\s*"foo",\s*true\s*\]\)/.test(result)) {
@@ -155,58 +151,58 @@ describe('index.js', function () {
     })
 
     it('should serialize functions', function () {
-      const result = index(function (aFunc) {
+      const result: string = index(function (aFunc: any) {
         aFunc('hello world')
-      }, function (str) {
+      }, function (str: any) {
         console.log(str)
       })
-      if (!/\)\(function\s+\(str\)\s*\{\s*console\.log\(str\)\s*\}\)/.test(result)) {
+      if (!/\)\(function\s+\(str\)\s*\{\s*console\.log\(str\);?\s*\}\)/.test(result)) {
         throw new Error('incorrect serialization: ' + result)
       }
     })
 
     it('should serialize functions in objects', function () {
-      const result = index(function (obj) {
+      const result: string = index(function (obj: any) {
         obj.func('hello world')
       }, {
-        func: function (str) {
+        func: function (str: any) {
           console.log(str)
         }
       })
-      if (!/\)\(\{\s*"?func"?:\s*function\s+\(str\)\s*\{\s*console\.log\(str\)\s*\},?\s*\}\)/.test(result)) {
+      if (!/\)\(\{\s*"?func"?:\s*function\s+\(str\)\s*\{\s*console\.log\(str\);?\s*\},?\s*\}\)/.test(result)) {
         throw new Error('incorrect serialization: ' + result)
       }
     })
 
     it('should serialize functions in arrays', function () {
-      const result = index(function (obj) {
+      const result: string = index(function (obj: any) {
         obj.func('hello world')
       }, [
-        function (str) {
+        function (str: any) {
           console.log(str)
         }
       ])
-      if (!/\)\(\[\s*function\s+\(str\)\s*\{\s*console\.log\(str\)\s*\},?\s*\]\)/.test(result)) {
+      if (!/\)\(\[\s*function\s+\(str\)\s*\{\s*console\.log\(str\);?\s*\},?\s*\]\)/.test(result)) {
         throw new Error('incorrect serialization: ' + result)
       }
     })
 
     it('should serialize arrow functions', function () {
-      const result = index(function (aFunc) {
+      const result: string = index(function (aFunc: any) {
         aFunc('hello world')
-      }, (str) => {
+      }, (str: any) => {
         console.log(str)
       })
-      if (!/\)\(\(str\)\s*=>\s*\{\s*console\.log\(str\)\s*\}\)/.test(result)) {
+      if (!/\)\(\(str\)\s*=>\s*\{\s*console\.log\(str\);?\s*\}\)/.test(result)) {
         throw new Error('incorrect serialization: ' + result)
       }
     })
 
     it('should use null for unsupported types', function () {
-      const result = index(function (val) {
+      const result: string = index(function (val: any) {
         return val === null
       }, Symbol('some description'))
-      if (!/\)\(null\)/.test(result)) {
+      if (!result.includes(')(null)')) {
         throw new Error('incorrect serialization: ' + result)
       }
     })
@@ -224,13 +220,13 @@ describe('index.js', function () {
     })
 
     it('should produce evaluatable strings', function () {
-      const string = index(function (a, b) {
+      const string: string = index(function (a: number, b: number) {
         return a + b
       }, 5, 7)
       // eslint-disable-next-line no-eval
-      const result = eval(string)
+      const result: number = eval(string)
       if (result !== 12) {
-        throw new Error('wrong eval result: ' + result)
+        throw new Error(`wrong eval result: ${result}`)
       }
     })
   })
