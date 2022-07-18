@@ -43,7 +43,7 @@
     "@meyfa/eslint-config": "2.0.0",
     "@types/mocha": "9.1.1",
     "c8": "7.11.3",
-    "eslint": "8.19.0",
+    "eslint": "8.20.0",
     "mocha": "10.0.0",
     "rimraf": "3.0.2",
     "ts-node": "10.8.2",
