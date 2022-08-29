@@ -40,7 +40,7 @@
     "node": ">=10.0.0"
   },
   "devDependencies": {
-    "@meyfa/eslint-config": "2.0.0",
+    "@meyfa/eslint-config": "2.0.2",
     "@types/mocha": "9.1.1",
     "c8": "7.11.3",
     "eslint": "8.20.0",
