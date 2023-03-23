@@ -82,7 +82,7 @@ function stringifyString (string: string): string {
  * @param {*}        args  Function arguments.
  * @returns {string} The runnable string.
  */
-function createRunString (func: Function, ...args: any[]): string {
+function createRunString<T extends (...args: any[]) => unknown> (func: T, ...args: Parameters<T>): string {
   if (typeof func !== 'function') {
     throw new Error('expected a function but got ' + typeof func)
   }
