@@ -49,8 +49,22 @@ describe('index.js', function () {
     })
 
     it('should keep the parameters', function () {
-      const result: string = index(function (foo: any, bar: any) {})
+      const result: string = index(function (foo: any, bar: any) {}, undefined, undefined)
       if (!/function\s*\(foo,\s*bar\)/.test(result)) {
+        throw new Error('parameters not kept: ' + result)
+      }
+    })
+
+    it('should allow optional parameters', function () {
+      const result: string = index(function (foo: any, bar?: any) {}, undefined)
+      if (!/function\s*\(foo,\s*bar\)/.test(result)) {
+        throw new Error('parameters not kept: ' + result)
+      }
+    })
+
+    it('should allow default parameters', function () {
+      const result: string = index(function (foo: any, bar: any = 42) {}, undefined)
+      if (!/function\s*\(foo,\s*bar\s*=\s*42\)/.test(result)) {
         throw new Error('parameters not kept: ' + result)
       }
     })
@@ -58,7 +72,7 @@ describe('index.js', function () {
     it('should stringify the contents', function () {
       const result: string = index(function (a: boolean, b: boolean) {
         return a || b
-      })
+      }, true, false)
       if (!/\{\s*return a \|\| b;?\s*\}/.test(result)) {
         throw new Error('contents not stringified correctly: ' + result)
       }
@@ -67,7 +81,7 @@ describe('index.js', function () {
     it('should stringify arrow functions', function () {
       const result: string = index((a: boolean, b: boolean) => {
         return a || b
-      })
+      }, true, false)
       if (!/\(a,\s*b\)\s*=>\s*\{\s*return a \|\| b;?\s*\}/.test(result)) {
         throw new Error('invalid stringification: ' + result)
       }
@@ -105,8 +119,8 @@ describe('index.js', function () {
     it('should escape serialized strings', function () {
       const result: string = index(function (a: string, b: string) {
         return a + ' ' + b
-      }, 'foo"bar\\"\n')
-      if (!result.includes(')("foo\\"bar\\\\\\"\\n")')) {
+      }, 'foo"bar\\"\n', 'baz')
+      if (!result.includes(')("foo\\"bar\\\\\\"\\n", "baz")')) {
         throw new Error('incorrect serialization: ' + result)
       }
     })
