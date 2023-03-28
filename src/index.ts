@@ -33,7 +33,7 @@ function stringify (obj: any): string {
  * @param {object} obj The object to stringify.
  * @returns {string} The object, stringified.
  */
-function stringifyObject (obj: { [key: string]: any }): string {
+function stringifyObject (obj: Record<string, any>): string {
   if (obj === null) {
     return 'null'
   }
@@ -54,7 +54,7 @@ function stringifyObject (obj: { [key: string]: any }): string {
  * @returns {string} The string escaped and wrapped in quotes.
  */
 function stringifyString (string: string): string {
-  const escMap: { [key: string]: string } = {
+  const escMap: Record<string, string> = {
     '"': '\\"',
     '\\': '\\\\',
     '\b': '\\b',
