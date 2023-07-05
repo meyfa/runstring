@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/meyfa/runstring/compare/v2.1.0...v3.0.0) (2023-07-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* Drop support for Node.js older than v18.16.1 ([#76](https://github.com/meyfa/runstring/issues/76))
+
+### Miscellaneous Chores
+
+* Drop support for Node.js older than v18.16.1 ([#76](https://github.com/meyfa/runstring/issues/76)) ([ee6e825](https://github.com/meyfa/runstring/commit/ee6e82586120360eb6777b2797b4e0eacfa4461b))
+
 ## [2.1.0](https://github.com/meyfa/runstring/compare/v2.0.1...v2.1.0) (2023-03-23)
 
 
