@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/meyfa/runstring/compare/v3.0.0...v3.0.1) (2023-07-23)
+
+
+### Miscellaneous Chores
+
+* Publish with provenance ([#80](https://github.com/meyfa/runstring/issues/80)) ([dfc8847](https://github.com/meyfa/runstring/commit/dfc8847ff78c628f26bbd8245272c46159da00db))
+
 ## [3.0.0](https://github.com/meyfa/runstring/compare/v2.1.0...v3.0.0) (2023-07-05)
 
 
