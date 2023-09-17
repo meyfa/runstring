@@ -119,8 +119,8 @@ describe('index.js', function () {
     it('should escape serialized strings', function () {
       const result: string = index(function (a: string, b: string) {
         return a + ' ' + b
-      }, 'foo"bar\\"\n', 'baz')
-      if (!result.includes(')("foo\\"bar\\\\\\"\\n", "baz")')) {
+      }, 'foo"bar\\"\n-\u0000\u2028\u2029\u0007', 'baz')
+      if (!result.includes(')("foo\\"bar\\\\\\"\\n-\\u0000\\u2028\\u2029\\u0007", "baz")')) {
         throw new Error('incorrect serialization: ' + result)
       }
     })
