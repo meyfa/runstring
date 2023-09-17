@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.2](https://github.com/meyfa/runstring/compare/v3.0.1...v3.0.2) (2023-09-17)
+
+
+### Bug Fixes
+
+* Use `String.prototype.slice()` instead of deprecated `.substr()` ([#90](https://github.com/meyfa/runstring/issues/90)) ([fc128db](https://github.com/meyfa/runstring/commit/fc128db599a086d5787bec7183f734f25c03f51c))
+
 ## [3.0.1](https://github.com/meyfa/runstring/compare/v3.0.0...v3.0.1) (2023-07-23)
 
 
