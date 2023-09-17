@@ -66,7 +66,7 @@ function stringifyString (string: string): string {
   // eslint-disable-next-line no-control-regex
   return '"' + string.replace(/[\\"\u0000-\u001F\u2028\u2029]/g, (m) => {
     if (escMap[m] !== undefined) return escMap[m]
-    return '\\u' + (m.charCodeAt(0) + 0x10000).toString(16).substr(1)
+    return '\\u' + (m.charCodeAt(0) + 0x10000).toString(16).slice(1)
   }) + '"'
 }
 
