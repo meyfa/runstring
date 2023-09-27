@@ -42,7 +42,7 @@
     "@meyfa/eslint-config": "5.0.0",
     "@types/mocha": "10.0.1",
     "c8": "8.0.0",
-    "eslint": "8.49.0",
+    "eslint": "8.50.0",
     "mocha": "10.2.0",
     "ts-node": "10.9.1",
     "typescript": "5.2.2"
