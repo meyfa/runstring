@@ -228,6 +228,7 @@ describe('index.js', function () {
       index(function () {
         hasRun = true
       })
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (hasRun) {
         throw new Error('function was run')
       }
@@ -237,7 +238,7 @@ describe('index.js', function () {
       const string: string = index(function (a: number, b: number) {
         return a + b
       }, 5, 7)
-      // eslint-disable-next-line no-eval
+
       const result: number = eval(string)
       if (result !== 12) {
         throw new Error(`wrong eval result: ${result}`)

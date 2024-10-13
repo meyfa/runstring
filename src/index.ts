@@ -33,7 +33,7 @@ function stringify (obj: any): string {
  * @param {object} obj The object to stringify.
  * @returns {string} The object, stringified.
  */
-function stringifyObject (obj: Record<string, any>): string {
+function stringifyObject (obj: null | Record<keyof any, unknown>): string {
   if (obj === null) {
     return 'null'
   }
@@ -65,6 +65,7 @@ function stringifyString (string: string): string {
   }
   // eslint-disable-next-line no-control-regex
   return '"' + string.replace(/[\\"\u0000-\u001F\u2028\u2029]/g, (m) => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (escMap[m] !== undefined) return escMap[m]
     return '\\u' + (m.charCodeAt(0) + 0x10000).toString(16).slice(1)
   }) + '"'
