@@ -6,13 +6,18 @@
   "packageRules": [
     {
       "matchDepTypes": ["devDependencies"],
-      "extends": ["schedule:weekly"]
+      "extends": ["schedule:monthly"]
     },
     {
       "matchDepTypes": ["devDependencies"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "dev dependencies (non-major)",
       "groupSlug": "dev-dependencies-non-major"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchDepTypes": ["action"],
+      "groupName": "actions"
     }
   ]
 }
